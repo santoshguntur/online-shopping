@@ -21,6 +21,11 @@
     <meta name="author" content="">
 
     <title>Online Shopping - ${title}</title>
+    
+    <script>
+  
+   window.menu = '${title}';
+  </script>
 
     <!-- Bootstrap core CSS -->
     <link href="${css}/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +35,7 @@
 
   </head>
 
+  
   <body>
 
     <!-- Navigation -->
@@ -57,7 +63,10 @@
     <!-- Bootstrap core JavaScript -->
     <script src="${js}/jquery.min.js"></script>
     <script src="${js}/bootstrap.bundle.min.js"></script>
-
+    
+    <!-- Adding my js file -->
+    <script src="${js}/myapp.js"></script>
+    
   </body>
 
 </html>

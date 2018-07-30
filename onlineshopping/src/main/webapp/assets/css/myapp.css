@@ -8,6 +8,16 @@ body {
   padding-top: 54px;
 }
 
+.active{
+  color: red;
+  border-bottom: 5px solid red;
+}
+
+a:hover, a:focus{
+  color: red;
+  text-decoration: none;
+  outline: none;
+}
 @media (min-width: 992px) {
   body {
     padding-top: 56px;

@@ -1,10 +1,10 @@
 <div class="container">
 
-<div class="row">
+<div>
 
    <h1>Contact Us</h1>
-   <hr/> <hr/> <hr/> <hr/>
-   <p>This is Contact Us Page</p>
+   <br/> <br/> <p>This is Contact Us Page</p> <br/> <br/>
+   
 </div>
 
 </div>

@@ -16,7 +16,7 @@ public class PageController {
 	}@RequestMapping(value={"/about"})
 	public ModelAndView about(){
 		ModelAndView mv=new ModelAndView("page");
-		mv.addObject("title", "Abount Us");
+		mv.addObject("title", "About Us");
 		mv.addObject("userClickAbout", true);
 		return mv;
 	}
@@ -28,6 +28,9 @@ public class PageController {
 		mv.addObject("userClickContact", true);
 		return mv;
 	}
+	
+	
+	
 	
 	
 	
