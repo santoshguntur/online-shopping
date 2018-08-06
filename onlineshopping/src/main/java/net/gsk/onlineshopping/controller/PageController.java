@@ -2,10 +2,12 @@ package net.gsk.onlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.gsk.shoppingbackend.dao.CategoryDAO;
+import net.gsk.shoppingbackend.dto.Category;
 
 @Controller
 public class PageController {
@@ -18,7 +20,7 @@ public class PageController {
 		ModelAndView mv=new ModelAndView("page");
 		mv.addObject("title", "Home Page");
 		//passing the list of categories
-		System.out.println("categories:"+ categoryDAO.list());
+		//System.out.println("categories:"+ categoryDAO.list());
 		mv.addObject("categories", categoryDAO.list());
 		mv.addObject("userClickHome", true);
 		return mv;
@@ -39,9 +41,33 @@ public class PageController {
 	}
 	
 	
+	/*
+	 * Methods to all products and based on category 
+	 * */
+	@RequestMapping(value={"/show/all/products"})
+	public ModelAndView showAllProducts(){
+		ModelAndView mv=new ModelAndView("page");
+		mv.addObject("title", "All products");
+		mv.addObject("categories", categoryDAO.list());
+		
+		mv.addObject("userClickAllProducts", true);
+		return mv;
+	}
 	
-	
-	
+	@RequestMapping(value={"/show/category/{id}/products"})
+	public ModelAndView showCategoryProducts(@PathVariable("id") int id){
+		ModelAndView mv=new ModelAndView("page");
+		
+		//category DAO to fetch single category
+		Category c=null;
+		c=categoryDAO.get(id);
+		mv.addObject("title", c.getName());
+		mv.addObject("categories", categoryDAO.list());
+		//passng single category object
+		mv.addObject("category", c);
+		mv.addObject("userClickCategoryProducts", true);
+		return mv;
+	}
 	
  /*   @RequestMapping(value="/test")
 	public ModelAndView test(@RequestParam(value="greeting",required=false) String greeting){
