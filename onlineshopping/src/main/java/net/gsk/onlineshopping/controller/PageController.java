@@ -1,16 +1,25 @@
 package net.gsk.onlineshopping.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.gsk.shoppingbackend.dao.CategoryDAO;
+
 @Controller
 public class PageController {
+	
+	@Autowired
+	private CategoryDAO categoryDAO;
 
 	@RequestMapping(value={"/","/index","/home"})
 	public ModelAndView index(){
 		ModelAndView mv=new ModelAndView("page");
 		mv.addObject("title", "Home Page");
+		//passing the list of categories
+		System.out.println("categories:"+ categoryDAO.list());
+		mv.addObject("categories", categoryDAO.list());
 		mv.addObject("userClickHome", true);
 		return mv;
 	}@RequestMapping(value={"/about"})
