@@ -3,6 +3,7 @@ package net.gsk.shoppingbackend.daoimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,9 @@ import net.gsk.shoppingbackend.dao.CategoryDAO;
 import net.gsk.shoppingbackend.dto.Category;
 
 
+@SuppressWarnings("deprecation")
 @Repository("categoryDAO")
+@Transactional
 public class CategoryDAOImpl implements CategoryDAO {
 	
 	private static List<Category> categories=new ArrayList();
@@ -38,17 +41,17 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	@Override
 	public List<Category> list() {
-			return categories;
+		
+		   String selectactivequery ="FROM Category where active = :active";
+		   Query query=sessionFactory.getCurrentSession().createQuery(selectactivequery);
+		   query.setParameter("active", true);		   
+			return query.getResultList();
 	}
 
 	@Override
 	public Category get(int id) {
-		for(Category c:categories){
-			if(c.getId() == id)
-				return c;
-		}
-			
-		return null;
+		return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));			
+		
 	}
 
 	@Override
@@ -65,6 +68,33 @@ public class CategoryDAOImpl implements CategoryDAO {
 			return false;
 		}
 		
+	}
+
+	@Override
+	public boolean update(Category c) {
+		try{
+        	//add category to database
+        	sessionFactory.getCurrentSession().update(c);
+        	return true;
+        }
+        catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean delete(Category c) {
+		try{
+			c.setActive(false);
+        	//add category to database
+        	sessionFactory.getCurrentSession().update(c);
+        	return true;
+        }
+        catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

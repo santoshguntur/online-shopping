@@ -6,10 +6,12 @@ import net.gsk.shoppingbackend.dto.Category;
 
 public interface CategoryDAO {
 	
-	boolean add(Category c);
 	
-	List<Category> list();
-
 	Category get(int id);
+	List<Category> list();
+	boolean add(Category c);
+	boolean update(Category c);
+	boolean delete(Category c);
+	
 
 }
