@@ -3,7 +3,10 @@ package net.gsk.shoppingbackend.daoimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.gsk.shoppingbackend.dao.CategoryDAO;
 import net.gsk.shoppingbackend.dto.Category;
@@ -13,6 +16,8 @@ import net.gsk.shoppingbackend.dto.Category;
 public class CategoryDAOImpl implements CategoryDAO {
 	
 	private static List<Category> categories=new ArrayList();
+	@Autowired
+	private SessionFactory sessionFactory;
 	
 	static{
 		Category c1=new Category();
@@ -44,6 +49,22 @@ public class CategoryDAOImpl implements CategoryDAO {
 		}
 			
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public boolean add(Category c) {
+
+        try{
+        	//add category to database
+        	sessionFactory.getCurrentSession().persist(c);
+        	return true;
+        }
+        catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 }
