@@ -11,12 +11,13 @@ public interface ProductDAO {
 	public boolean update(Product p);
 	public boolean delete(Product p);
 	public Product get(int p);
-	public List<Product> list(int p);
+	
 	
 	//Business methods
 	List<Product> listActiveProducts();
 	List<Product> listActiveProductByCategory(int category_id);
 	List<Product> getLatestActiveProducts(int count);
+	List<Product> list();
 	
 	
 }
