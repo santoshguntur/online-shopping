@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Product {
@@ -98,15 +100,19 @@ public class Product {
 	 private String code;
 	 private String name;
 	 private String brand;
+	 @JsonIgnore
 	 private String description;
 	 @Column(name="unit_price")
 	 private double unitprice; 
 	 private int quantity;
+	 @JsonIgnore
 	 @Column(name="is_active")
 	 private boolean active;
+	 @JsonIgnore
 	 @Column(name="category_id")
 	 @JoinColumn(name="id")
 	 private int categoryId;
+	 @JsonIgnore
 	 @Column(name="supplier_id")
 	 private int supplierId;
 	 private int purchases;

@@ -13,6 +13,10 @@ body {
   border-bottom: 5px solid red;
 }
 
+.dataTableImg{
+	width:100px;
+	height:100px;
+}
 a:hover, a:focus{
   color: red;
   text-decoration: none;
