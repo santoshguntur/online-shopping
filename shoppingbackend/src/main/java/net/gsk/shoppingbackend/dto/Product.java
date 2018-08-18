@@ -15,7 +15,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Product {
 
-	 @Override
+	 public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
+	}
+
+	@Override
 	public String toString() {
 		return "Product [id=" + id + ", code=" + code + ", name=" + name + ", brand=" + brand + ", description="
 				+ description + ", unitprice=" + unitprice + ", quantity=" + quantity + ", active=" + active
@@ -115,6 +123,6 @@ public class Product {
 	 @JsonIgnore
 	 @Column(name="supplier_id")
 	 private int supplierId;
-	 private int purchases;
-	 
+	 private int purchases;	 
+	 private int views;
 }
