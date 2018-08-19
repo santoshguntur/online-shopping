@@ -47,7 +47,12 @@ $(function(){
 				}
 			},{data:'name'},{data:'brand'},{data:'unitprice'},
 				{data:'unitprice',mRender:function(data,type,row){return '&#8377 '+data;}},
-				{data:'quantity'},
+				{data:'quantity',mRender:function(data,type,row){
+					
+					if(data < 1) return '<span style="color:red">Out Of Stock';
+					return data;
+					}
+				},
 				{data:'id',data : 'id',	
 					mRender : function(data, type, row) {
 
@@ -57,12 +62,23 @@ $(function(){
 								+ '/show/'
 								+ data
 								+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;';
+						
+						       if(row.quantity <1 ){
+						    	   
+						    	   str += '<a href="'
+										+ window.contextRoot
+										+ '/cart/add/'
+										+ data
+										+ '/product" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+						       }else{
 								str += '<a href="'
 										+ window.contextRoot
 										+ '/cart/add/'
 										+ data
 										+ '/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
-								return str;
+								
+								}
+						       return str;
 							}
 						
 						}
