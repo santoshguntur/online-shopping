@@ -1,11 +1,14 @@
 package net.gsk.onlineshopping.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.gsk.onlineshopping.exception.ProductNotFoundException;
 import net.gsk.shoppingbackend.dao.CategoryDAO;
 import net.gsk.shoppingbackend.dao.ProductDAO;
 import net.gsk.shoppingbackend.dto.Category;
@@ -14,6 +17,8 @@ import net.gsk.shoppingbackend.dto.Product;
 @Controller
 public class PageController {
 	
+	private static final Logger logger=LoggerFactory.getLogger(PageController.class);
+	
 	@Autowired
 	private CategoryDAO categoryDAO;
 	@Autowired
@@ -21,8 +26,10 @@ public class PageController {
 
 	@RequestMapping(value={"/","/index","/home"})
 	public ModelAndView index(){
+		logger.info("Info log for index");
+		logger.debug("Debug log for index");
 		ModelAndView mv=new ModelAndView("page");
-		mv.addObject("title", "Home Page");
+		mv.addObject("title", "Home Page ");
 		//passing the list of categories
 		//System.out.println("categories:"+ categoryDAO.list());
 		mv.addObject("categories", categoryDAO.list());
@@ -75,10 +82,12 @@ public class PageController {
 	
 	
 	@RequestMapping(value={"/show/{id}/product"})
-	public ModelAndView showSingleProducts(@PathVariable("id") int id){
+	public ModelAndView showSingleProducts(@PathVariable("id") int id ) throws ProductNotFoundException{
 		ModelAndView mv=new ModelAndView("page");
 		
 		Product product=productDAO.get(id);
+		
+		if (product == null) throw new ProductNotFoundException();
 		product.setViews(product.getViews()+1);
 		productDAO.update(product);
 		
