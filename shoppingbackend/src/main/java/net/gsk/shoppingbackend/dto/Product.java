@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -104,9 +105,14 @@ public class Product {
 	}
 	@Id
 	 @GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+	 
+	 
 	 private int id;
 	 private String code;
+	 @NotNull(message="Please enter the Product Name")
 	 private String name;
+	 @NotNull(message="Please enter the Brand name")
 	 private String brand;
 	 @JsonIgnore
 	 private String description;
